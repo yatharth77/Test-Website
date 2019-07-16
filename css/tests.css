@@ -1,0 +1,124 @@
+.border{
+	border: 1px solid black;
+	height: 15em;
+	width: 15em;
+	background-color: #e6f5ff;
+	/*padding: 5px;*/
+	margin: 12px;
+}
+
+.section-row{
+	margin-top: 2em;
+}
+
+.heading{
+     font-family: 'Concert One', cursive;
+     color: #333333;
+     text-align: center;
+     margin-left: 3em;
+ }
+ .heading1{
+     font-family: 'Concert One', cursive;
+     color: #333333;
+     text-align: left;
+     margin-left: 3em;
+ }
+
+.test-btn{
+	position: relative;
+	/*top: 2em;*/
+	margin-left: 3.25em;
+    padding: 4px 15px;
+    background-color: #4d4d4d;
+    color: #fff;
+}
+
+.test-btn:hover{
+	text-decoration: none;
+	color: #fff;
+	background-color: #000; 
+}
+.post .post-body{
+	text-align: center;
+}
+
+.tests_num{
+	font-weight: bold;
+	font-size: 24px;
+	text-align: center;
+	color: black;
+}
+
+.status{
+	width: 100%;
+}
+
+.hoverWrapper:hover #hoverShow {
+ display: block;
+}
+
+.hoverWrapper #hoverShow {
+ display: none;
+ text-align: center;
+ font-weight: bold;
+ position: absolute;
+ background-color: #fff;
+ top: 80px;
+ width: 190px;
+ height: 80px;
+ 
+}
+@media only screen and (max-width: 1200px) {
+
+  	.heading1{
+  		margin-left: 0px;
+  		text-align: left;
+  	}
+  }
+  @media only screen and (max-width: 991px) {
+
+  	.border{
+  		width: auto;
+  		/*margin-left: 5em;*/
+  		text-align: center;
+  		
+  	}
+  	.heading1{
+  		
+  		text-align: center;
+  	}
+  	#piechart-outer-div{
+  		width: auto;
+  	}
+  	.aside-widget{
+  		margin-left:140px;
+  	}
+  	.test-btn{
+  		margin-left: 0px;
+  	}
+
+  	.primary-button{
+  		display: none;
+  	}
+  	.hoverWrapper #hoverShow {
+  		width: 90%;
+		 
+	}
+ 
+}
+
+  @media only screen and (max-width: 768px){
+  	.tests{
+  		margin-right: 10em;
+  	}
+
+  }
+
+   @media only screen and (max-width: 500px) {
+   	.aside-widget{
+   		margin-left: 0px;
+   	}
+
+   }
+
+  

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="quizz.css" type="text/css" rel="stylesheet">
+
+<!-- Font-Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+</head>
+<body>
+	<!-- <div class="tb-main-header"></div> -->
+	<div id="page">
+		<div class="left-div" id="mainbar">
+			<div class="test-sections-list row">
+				<h5 class="sl-title">TopicName</h5>
+				<!-- <div class="test-page-timer col-xs-8"> -->
+				<!-- <div class="test-page-timer col-xs-9" id="time">Time Left</div> -->
+				<!-- </div> -->
+			</div>
+			<div class="mob-question-holder">
+				<div id="mainBox" class="test-qpip-holder">
+					<div class="qpip-inner" id="questions">
+						<div class="header">
+							<div class="header-inner">
+								<div class="row" id="disp_que_no">
+								</div>
+							</div>
+						</div>
+						<div class="body detailed-question" id="questions_body">
+						</div>
+						<div class="footer mob-button-footer on-test-page">
+							<div class="footer-inner-ssc" id="footer_inner">
+								<button type="button" onclick="prevQues()" class="btn btn-gray-dark" id="prevbtn">
+									<i class="fa fa-chevron-left"></i><span class="temp-text"> Prev</span><!-- <span class="temp-text">Question</span> -->
+								</button>
+								<button type="button" onclick="nextQues()" class="btn btn-gray-dark" id="nextbtn"><span class="temp-text"> Next </span>
+									<i class="fa fa-chevron-right"></i>
+								</button>
+								<!-- <button type="button" onclick="" class="btn btn-danger pull-right">Erase</button> -->
+								<button type="button" onclick="save_ans()" class="btn save_btn pull-right" id="save-no-float">Save</button>
+								<!-- <button type="button" onclick="tagDeTag()" class="btn btn-warning toggle-que-tag">
+									<span class="que-tag" id="quetag">Tag</span>
+									<span class="que-de-tag display-none" id="quedetag">De-Tag</span>
+								</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="right-div" id="sidebar">
+			<button type="button" class="collapse-sidebar" onclick="closeSidebar()">
+			<i class="fa fa-chevron-right" id="right"></i>
+			<i class="fa fa-chevron-left disp-none" id="left"></i>
+			</button>
+
+			<div class="sidebar-content">
+				<div class="student-details">
+					<span>Student Name: </span>
+					<span>Name</span>
+				</div>
+				<div class="q-possible-states">
+					<div class="col-xs-6">
+						<span class="u-legend-indicator attempted"></span>
+						<span class="qps-state">Attempted</span>
+					</div>
+					<div class="col-xs-6">
+						<span class="u-legend-indicator unattempted"></span>
+						<span class="qps-state">Unattempted</span>
+					</div>
+					<!-- <div class="col-xs-5">
+						<span class="u-legend-indicator not_visited"></span>
+						<span class="qps-state">Not Visited</span>
+					</div> -->
+					<div class="col-xs-12">
+						<span class="u-legend-indicator bookmarked"></span>
+						<span class="qps-state">Marked for review</span>
+					</div>
+					<div class="col-xs-12">
+						<span class="u-legend-indicator attempted-bookmarked"></span>
+						<span class="qps-state">Attempted and Marked</span>
+					</div>
+				</div>
+				<div class="questions-number-holder">
+					<div id="section" class="palette">
+						<div class="sidebar-section" id="sidebar-sections">
+							<span>Section</span>
+							TopicName
+						</div>
+						<ul class="questionsList" id="ques-list">
+						</ul>
+					</div>
+				</div>
+				<div class="marks-action">
+					<button type="button" onclick="save_ans()" class="btn save-right" id="save-no-float">Save</button>
+					<ul id="mainBtnBox" class="main-btn-box" role="tablist">
+						<li>
+							<button type="button" class="btn btn-info" onclick="">Questions</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-info" onclick="">Instructions</button>
+						</li>
+					</ul>
+					<button type="button" class="btn submit-btn" onClick="">Submit Test</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+		// *********
+
+
+		// var xhttp = new XMLHttpRequest();
+		// xhttp.onreadystatechange = function() {
+		// if (this.readyState == 4 && this.status == 200) {
+		//    // Typical action to be performed when the document is ready:
+		//    document.getElementById("demo").innerHTML = xhttp.responseText;
+		// }
+		// };
+		// xhttp.open("GET", "filename", true);
+		// xhttp.send();
+
+		
+		// myJson=xhttp.data();
+
+		// ***********
+
+
+	var myJson='{"number":8,"question":[{"id":"1","question":"1 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1},{"id":"2","question":"2 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":0},{"id":"3","question":"3 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1},{"id":"4","question":"4 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":0},{"id":"5","question":"5 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1},{"id":"6","question":"6 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1},{"id":"7","question":"6 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1},{"id":"8","question":"6 Which of the following is as fat as trushita?","o1":"Cow","o2":"buffalo","o3":"hippo","o4":"no one can be as fat as her","status":1}],"rem_time":"60"}';
+
+
+	var state=[];
+	var obj = JSON.parse(myJson);
+	var cur_quest;
+	var checked_answer=[];
+	for(var i=0;i<obj.number;i++){
+		checked_answer[i]=-1;
+		state[i]=obj.question[i].status;
+	}
+	// for(var i =0;i<obj.number;i++)
+	// {
+	// 	state[i]=obj.question[i].status;
+	// }
+
+	function color_btn(id){
+		id_q=id.substring(5,id.length-1);
+		id_ans=id[id.length-1];
+		id_ans=parseInt(id_ans);
+		id_q=parseInt(id_q);
+		state[id_q]=1;
+		checked_answer[id_q]=id_ans;
+		label_id="label"+id_q;
+		if((document.getElementById(label_id).style.backgroundColor=="rgb(255, 192, 0)") || (document.getElementById(label_id).style.backgroundColor=="rgb(112, 48, 160)"))
+			document.getElementById(label_id).style.backgroundColor="#7030a0"; //purple
+		else
+			document.getElementById(label_id).style.backgroundColor="#00ff03"; //green
+		checked_answer[id]=id_ans;
+	}
+	function erase(id){
+		id=id.substring(5,id.length);
+		id=parseInt(id);
+		state[id]=0;
+		checked_answer[id]=-1;
+		if(document.getElementById("label"+id).style.backgroundColor=="rgb(112, 48, 160)")
+			document.getElementById("label"+id).style.backgroundColor="#ffc000";
+		else
+			document.getElementById("label"+id).style.backgroundColor="white";
+		for(var i=1;i<=4;i++)
+				{
+					document.getElementById("radio"+id+i).checked=false;
+				}
+	}
+
+	function disp_quest(id){
+		id=id.substring(5,id.length);
+		id=parseInt(id);
+		if(id!=cur_quest){		
+			document.getElementById("tp-ques-number"+id).classList.remove("display-none");
+			document.getElementById("tp-ques-number"+cur_quest).classList.add("display-none");
+			document.getElementById("q"+id).classList.remove("display-none");
+			document.getElementById("q"+cur_quest).classList.add("display-none");
+			document.getElementById("label"+id).classList.add("current-question");
+			document.getElementById("label"+cur_quest).classList.remove("current-question");
+			document.getElementById("tag_de_tag"+id).classList.remove("display-none");
+			document.getElementById("tag_de_tag"+cur_quest).classList.add("display-none");
+			document.getElementById("erase"+id).classList.remove("display-none");
+			document.getElementById("erase"+cur_quest).classList.add("display-none");
+			// tagDeTag(id);
+			showing[id]=1;
+			showing[cur_quest]=0;
+			cur_quest=id;
+		}
+	}
+
+	// Tag/DeTag
+
+	var decide_var = [];
+	for(var i=0; i<obj.number; i++){
+		decide_var[i]=true;
+	}
+	function tagDeTag(id){
+		// if(isNaN(id)){
+		// 	id=id.substring(10,id.length);
+		// 	id=parseInt(id);
+		// }
+		if(decide_var[cur_quest])
+			tag(id);
+		else
+			deTag(id);
+
+		decide_var[cur_quest] = !decide_var[cur_quest];
+	}
+
+	function tag(id){
+		document.getElementById("quetag"+cur_quest).classList.add("display-none");
+		document.getElementById("quedetag"+cur_quest).classList.remove("display-none");
+		if(document.getElementById("label"+cur_quest).style.backgroundColor=="rgb(0, 255, 3)") //green
+			document.getElementById("label"+cur_quest).style.backgroundColor="#7030a0" //purple
+		else
+			document.getElementById("label"+cur_quest).style.backgroundColor="#ffc000"; //yellow
+	}
+
+	function deTag(id){		
+		document.getElementById("quetag"+cur_quest).classList.remove("display-none");
+		document.getElementById("quedetag"+cur_quest).classList.add("display-none");
+		if(document.getElementById("label"+cur_quest).style.backgroundColor=="rgb(112, 48, 160)") //purple
+			document.getElementById("label"+cur_quest).style.backgroundColor="#00ff03"; //green
+		else
+			document.getElementById("label"+cur_quest).style.backgroundColor="#fff";
+		
+	}
+	var start_date=new Date();
+	var start_hours=start_date.getHours();
+	var start_mins=start_date.getMinutes();
+	var start_sec=start_date.getSeconds();
+
+	function getTimeLeft(){
+		var curr_date=new Date();
+		var curr_hours=curr_date.getHours();
+		var curr_mins=curr_date.getMinutes();
+		var curr_sec=curr_date.getSeconds();
+		var diff_sec, diff_min, diff_hour;
+		if(curr_sec<start_sec){
+			curr_mins--;
+			curr_sec+=60;
+		}
+		diff_sec = curr_sec - start_sec;
+		if(curr_mins<start_mins){
+			curr_hours--;
+			curr_mins+=60;
+		}
+		// alert("hello");
+		diff_min = curr_mins - start_mins;
+		// alert("hello");
+		diff_hour = curr_hours - start_hours;
+		// alert(obj.rem_time);
+		// alert(diff_hour+" "+diff_min+" "+diff_sec);
+		var time= obj.rem_time-((diff_hour*60*60)+(diff_min*60)+(diff_sec));
+		// alert("hello");
+		return time;
+	}
+
+	function save_ans(){
+		// alert("hi");
+		var time = getTimeLeft();
+		// alert(time);
+		var request_json="{'time_left':"+time+",'questions':[";
+		for(var i=0;i<obj.number;i++)
+				{
+					request_json=request_json+"{'q"+i+"':"+checked_answer[i]+"}";
+					if(i!=obj.number-1)
+							request_json=request_json+",";
+					else
+							request_json=request_json+"]";
+				}
+		// alert(request_json);
+		// var send=JSON.stringify(request_json);
+		// alert(send);
+
+		// Sending and receiving data in JSON format using POST method
+		//
+		// ********
+
+
+		// var xhr = new XMLHttpRequest();
+		// var url = "url";
+		// xhr.open("POST", url, true);
+		// xhr.setRequestHeader("Content-Type", "application/json");
+		// xhr.onreadystatechange = function () {
+		//     if (xhr.readyState === 4 && xhr.status === 200) {
+		//         var json = JSON.parse(xhr.responseText);
+		//         console.log(json.email + ", " + json.password);
+		//     }
+		// };
+		// var data = JSON.stringify(request_json);
+		// xhr.send(data);
+
+
+		// *********
+	}
+	
+
+	
+	for(var i=0; i<obj.number; i++){
+		var x, y;
+
+		y=document.createElement("DIV");
+		y.className="col-xs-3 tp-ques-number";
+		y.id="tp-ques-number"+i;
+		if(i !=0 ){
+			y.classList.add("display-none");
+		}
+		y.appendChild(document.createTextNode("Q"));
+		document.getElementById("disp_que_no").appendChild(y);
+
+		x=document.createElement("SPAN");
+		x.className="hidden-xs";
+		x.appendChild(document.createTextNode("uestion No."));
+		document.getElementById("tp-ques-number"+i).appendChild(x);
+
+		y.appendChild(document.createTextNode((i+1)));
+		document.getElementById("disp_que_no").appendChild(y);
+	}
+
+		var x=document.createElement("DIV");
+		x.className="col-xs-9 tp-pos-neg-marks";
+		x.id="pos-neg-marks";
+		document.getElementById("disp_que_no").appendChild(x);
+
+		x=document.createElement("DIV");
+		x.className="marks-time-info";
+		x.id="marks-info";
+		document.getElementById("pos-neg-marks").appendChild(x);
+
+		x=document.createElement("DIV");
+		x.className="font-size-base-1";
+		x.appendChild(document.createTextNode("Marks"));
+		document.getElementById("marks-info").appendChild(x);
+
+		x=document.createElement("SPAN");
+		x.className="badge correct";
+		x.appendChild(document.createTextNode("+5"));
+		document.getElementById("marks-info").appendChild(x);
+
+		x=document.createElement("SPAN");
+		x.className="badge incorrect";
+		x.appendChild(document.createTextNode("-1"));
+		document.getElementById("marks-info").appendChild(x);
+
+		x=document.createElement("DIV");
+		x.className="marks-time-info";
+		x.id="time-info";
+		x.style.minWidth="40px";
+		document.getElementById("pos-neg-marks").appendChild(x);
+
+		x=document.createElement("DIV");
+		x.className="font-size-base-1";
+		x.appendChild(document.createTextNode("Time"));
+		document.getElementById("time-info").appendChild(x);
+
+		x=document.createElement("SPAN");
+		x.className="timer";
+		x.id="time";
+		x.appendChild(document.createTextNode("Start"));
+		document.getElementById("time-info").appendChild(x);
+
+	for(i=0; i<obj.number; i++){
+		var x;
+
+		x=document.createElement("LI");
+  		x.className="label skipped";
+  		x.id="label"+i;
+  		x.setAttribute("onclick","disp_quest(this.id)");
+  		if(i==0){
+  			x.className="label skipped current-question";
+  			cur_quest=i;
+  		}
+  		x.appendChild(document.createTextNode(i+1));
+  		document.getElementById("ques-list").appendChild(x);
+
+
+		 x=document.createElement("DIV");
+		x.className="que-ans-box";
+		x.id="q"+i;
+		if(i != 0){
+			x.classList.add("display-none");
+		}
+		document.getElementById("questions_body").appendChild(x);
+
+		x=document.createElement("DIV");
+		x.appendChild(document.createTextNode(obj.question[i].question));
+		document.getElementById("q"+i).appendChild(x);
+
+		x=document.createElement("UL");
+		x.className="q-multiple-choices";
+		x.id="q-multiple-choices"+i;
+		document.getElementById("q"+i).appendChild(x);
+		for(var j=1;j<=4;j++)
+				{
+					x=document.createElement("LI");
+					x.id="options"+i+""+j;
+					document.getElementById("q-multiple-choices"+i).appendChild(x);
+
+					x=document.createElement("LABEL");
+					x.id="option_name"+i+""+j;
+					document.getElementById("options"+i+""+j).appendChild(x);
+
+					x = document.createElement("INPUT");
+					x.id="radio"+i+j;
+			  		x.setAttribute("type", "radio");
+			  		x.setAttribute("name", "option"+i);
+			  		x.setAttribute("onclick", "color_btn(this.id)");
+			  		document.getElementById("option_name"+i+""+j).appendChild(x);
+
+			  		x= document.createElement("DIV");
+			  		x.className="option";
+			  		x.appendChild(document.createTextNode(obj.question[i]["o"+j]));
+			  		document.getElementById("option_name"+i+""+j).appendChild(x);			  		
+				}
+
+				x=document.createElement("BUTTON");
+				x.className="btn-warning toggle-que-tag";
+				x.id="tag_de_tag"+i;
+				if(i!=0)
+					x.classList.add("display-none");
+				x.setAttribute("onclick","tagDeTag(this.id)");
+				document.getElementById("footer_inner").appendChild(x);
+
+				x=document.createElement("SPAN");
+				x.className="que-tag";
+				x.id="quetag"+i;
+				x.appendChild(document.createTextNode("Tag"));
+				document.getElementById("tag_de_tag"+i).appendChild(x);
+
+				x=document.createElement("SPAN");
+				x.className="que-de-tag display-none";
+				x.id="quedetag"+i;
+				x.appendChild(document.createTextNode("De-Tag"));
+				document.getElementById("tag_de_tag"+i).appendChild(x);
+				
+				x= document.createElement("BUTTON");
+				x.className="erase_btn btn-danger";
+				x.id="erase"+i;
+				x.setAttribute("onclick", "erase(this.id)");
+				if(i!=0){
+					x.className="erase_btn btn-danger display-none";
+				}
+				x.appendChild(document.createTextNode("Erase"));
+				document.getElementById("footer_inner").appendChild(x); 		
+	}
+
+	// var x=window.matchMedia("(max-width: 575px)");
+	// if(x.matches){
+	// 	document.getElementById("save-no-float").classList.remove("pull-right");
+	// }
+
+	// x=window.matchMedia("(min-width: 576px)");
+	// if(x.matches){
+	// 	document.getElementById("save-no-float").classList.add("pull-right");
+	// }
+
+
+	// previous and next questions
+	var showing = [];
+	var questions = [];
+	showing[0]=1;
+	for(var i=1; i<obj.number; i++){
+		showing[i]=0;
+	}
+	for(var i=0; i<obj.number; i++){
+		questions[i]="q"+i;
+	}
+	var qElems = [];
+    for (var i = 0; i < questions.length; i++) {
+        qElems.push(document.getElementById(questions[i]));   
+    }
+	function prevQues() { 
+
+	document.getElementById("nextbtn").disabled=false;
+    for (var i = 0; i < showing.length; i++) {
+    	document.getElementById("label"+i).classList.remove("current-question");
+    	document.getElementById("tp-ques-number"+i).classList.add("display-none");
+    	document.getElementById("erase"+i).classList.add("display-none");
+    	document.getElementById("tag_de_tag"+i).classList.add("display-none");
+        if (showing[i] == 1) {
+            qElems[i].classList.add("display-none");
+            showing[i] = 0;
+            if (i == 0) {
+            	document.getElementById("prevbtn").disabled=true;
+            	qElems[i].classList.remove("display-none");
+            	document.getElementById("label"+i).classList.add("current-question");
+            	cur_quest=i;
+            	document.getElementById("tp-ques-number"+i).classList.remove("display-none");
+            	document.getElementById("erase"+i).classList.remove("display-none");
+            	document.getElementById("tag_de_tag"+i).classList.remove("display-none");
+            	showing[i] = 1;
+                
+            } else {
+            	document.getElementById("prevbtn").disabled=false;
+                qElems[i-1].classList.remove("display-none");
+                document.getElementById("label"+(i-1)).classList.add("current-question");
+                cur_quest=i-1;
+                document.getElementById("tp-ques-number"+(i-1)).classList.remove("display-none");
+                document.getElementById("erase"+(i-1)).classList.remove("display-none");
+                document.getElementById("tag_de_tag"+(i-1)).classList.remove("display-none");
+                showing[i - 1] = 1;
+            }
+            break;
+        }
+    }      
+}
+function nextQues() {
+	document.getElementById("prevbtn").disabled=false;
+    for (var i = 0; i < showing.length; i++) {
+    	document.getElementById("label"+i).classList.remove("current-question");
+    	document.getElementById("tp-ques-number"+i).classList.add("display-none");
+    	document.getElementById("erase"+i).classList.add("display-none");
+    	document.getElementById("tag_de_tag"+i).classList.add("display-none");
+        if (showing[i] == 1) {
+            qElems[i].classList.add("display-none");
+            showing[i] = 0;
+            if (i == showing.length - 1) {
+            	document.getElementById("nextbtn").disabled=true;
+            	qElems[i].classList.remove("display-none");
+            	showing[i] = 1;
+            	document.getElementById("label"+i).classList.add("current-question");
+            	cur_quest=i;
+            	document.getElementById("tp-ques-number"+i).classList.remove("display-none");
+            	document.getElementById("erase"+i).classList.remove("display-none");
+            	document.getElementById("tag_de_tag"+i).classList.remove("display-none");
+            	
+                
+            } else {
+            	document.getElementById("nextbtn").disabled=false;
+                qElems[i+1].classList.remove("display-none");
+                showing[i + 1] = 1;
+                document.getElementById("label"+(i+1)).classList.add("current-question");
+                cur_quest=i+1;
+                document.getElementById("tp-ques-number"+(i+1)).classList.remove("display-none");
+                document.getElementById("erase"+(i+1)).classList.remove("display-none");
+                document.getElementById("tag_de_tag"+(i+1)).classList.remove("display-none");
+                
+            }
+            break;
+        }
+    }      
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+        	// alert("Test Over");
+            document.getElementById("time").innerHTML = "Time Up!"
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var Minutes = obj.rem_time;
+        display = document.querySelector('#time');
+    startTimer(Minutes, display);
+};
+
+</script>
+
+<!-- Close Sidebar -->
+<script type="text/javascript">
+	var deciding_var=true;
+	// alert("hi");
+
+	function closeBar(){
+		// document.getElementById("mainbar").classList.remove("display-none");
+		// document.getElementById("sidebar").classList.remove("width100");
+
+		document.getElementById("pos-neg-marks").classList.remove("display-none");
+		document.getElementById("footer_inner").classList.remove("display-none");
+
+		var ele=document.getElementById("sidebar");
+		ele.classList.toggle("closed");
+		document.getElementById("right").classList.add("disp-none");
+		// document.getElementById("sidebar-sections").style.display="none";
+		document.getElementById("left").classList.remove("disp-none");
+
+		var ele=document.getElementById("mainbar");
+		ele.classList.toggle("expanded");		
+	}
+
+	function openBar(){
+		//  var x=window.matchMedia("(max-width: 450px)");
+		//  if(x.matches){
+		// // 	document.getElementById("mainbar").classList.add("display-none");
+		// // 	document.getElementById("sidebar").classList.add("width100");
+		// document.getElementById("time-info").classList.add("display-none");
+		// document.getElementById("footer_inner").classList.add("display-none");
+		//  }
+		var x=window.matchMedia("(max-width: 450px)");
+		if(x.matches){
+		// alert("hi");
+			
+			// alert("hi");		
+			document.getElementById("pos-neg-marks").classList.add("display-none");
+			document.getElementById("footer_inner").classList.add("display-none");
+			
+		}
+
+
+		var ele=document.getElementById("sidebar");
+		ele.classList.toggle("closed");
+		document.getElementById("right").classList.remove("disp-none");
+		// document.getElementById("sidebar-sections").style.display="none";
+		document.getElementById("left").classList.add("disp-none");
+
+		var ele=document.getElementById("mainbar");
+		ele.classList.toggle("expanded");		
+
+
+	}
+
+	function closeSidebar(){
+		if(deciding_var){
+			closeBar();
+		}		
+		else {
+			openBar();
+		}
+		deciding_var = !deciding_var;
+	}
+
+	// alert("hi");
+	function hide_ele(x){
+		if(x.matches){
+		// alert("hi");
+			if(deciding_var){			
+			document.getElementById("pos-neg-marks").classList.add("display-none");
+			document.getElementById("footer_inner").classList.add("display-none");
+			}
+			else{
+				document.getElementById("pos-neg-marks").classList.remove("display-none");
+				document.getElementById("footer_inner").classList.remove("display-none");
+			}
+		}
+		else{
+				// alert("hi");
+			document.getElementById("pos-neg-marks").classList.remove("display-none");
+			document.getElementById("footer_inner").classList.remove("display-none");
+		}
+	}
+
+	var x=window.matchMedia("(max-width: 450px)");
+	hide_ele(x);
+	x.addListener(hide_ele);
+	
+
+	var x=window.matchMedia("(max-width: 991px)");
+	if(x.matches){
+		closeSidebar();
+	}
+	x.addListener(closeSidebar);
+
+	// var y=window.matchMedia("(max-width: 470px)");
+	// if(y.matches){
+	// 	if(deciding_var){
+	// 		document.getElementById("mainbar").classList.add("display-none");
+	// 	}
+	// 	else{
+	// 		document.getElementById("mainbar").classList.remove("display-none");
+	// 	}
+	// }
+
+	
+</script>
